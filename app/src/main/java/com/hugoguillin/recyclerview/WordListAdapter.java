@@ -39,7 +39,8 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return mWordList.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder{
+    class WordViewHolder extends RecyclerView.ViewHolder
+                                implements View.OnClickListener {
         public final TextView wordItemView;
         final WordListAdapter mAdapter;
 
@@ -48,6 +49,15 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
             super(itemView);
             wordItemView = itemView.findViewById(R.id.word);
             this.mAdapter = mAdapter;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int mPosition = getLayoutPosition();
+            String element = mWordList.get(mPosition);
+            mWordList.set(mPosition, "Pulsado! " + element);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }
